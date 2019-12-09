@@ -1,0 +1,90 @@
+//2) Escreva um programa em Assembly que leia do teclado dois números inteiro de 0
+//até 99 e imprima sua soma:
+
+include emu8086.inc
+
+org 100h
+
+PRINT 10
+PRINT "ESCREVA UM NUMERO: "
+MOV AH, 1
+INT 21H
+SUB AL, 48d
+MOV DL, AL
+
+INT 21H
+MOV DH, AL
+SUB DH, 48d
+
+MOV AL, DL
+MOV BL, 10d
+MUL BL
+MOV DL, AL
+
+ADD DL, DH
+
+
+PUTC 10
+PUTC 13
+PRINT 10
+PRINT "ESCREVA OUTRO NUMERO: "
+MOV AH, 1
+INT 21H
+SUB AL, 48d
+MOV CL, AL
+
+INT 21H
+MOV CH, AL
+SUB CH, 48d
+
+MOV AL, CL
+MOV BL, 10d
+MUL BL
+MOV CL, AL
+
+ADD CL, CH
+MOV DH, CL
+
+ADD DL, DH
+
+MOV BL, 100d
+MOV AL, DL
+MOV DH, AH      
+
+
+
+;;;
+MOV BL, 100d
+MOV AL, DL
+DIV BL
+MOV DH, AH  
+MOV CL, AL   
+
+MOV BL, 10d
+MOV AL, DH
+MOV AH, 0
+DIV BL       
+MOV BL, AL   
+MOV DH, AH   
+
+ADD CL, 48d
+ADD BL, 48d
+ADD DH, 48d
+
+PUTC 10
+PUTC 13
+PRINT 10
+PRINT "A SOMA EH: "
+
+MOV DL, CL
+MOV AH, 2
+INT 21h
+
+MOV DL, BL
+INT 21h
+
+MOV DL, DH
+INT 21h                                 
+
+RET
+

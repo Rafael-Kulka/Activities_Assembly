@@ -1,0 +1,83 @@
+5) Escreva um programa em Assembly que leia do teclado e determine se um dado
+número N é POSITIVO, NEGATIVO ou NULO, e apresente o valor posteriormente: 
+
+INCLUDE emu8086.inc
+ORG 100h
+
+MOV AH, 1
+INT 21h
+CMP AL, 45d
+JE NEGATIVO
+MOV DL, AL
+MOV A , DL
+
+MOV AH, 1
+INT 21h
+MOV BL, AL
+MOV B, BL
+
+MOV AH, 1
+INT 21h
+MOV CL, AL
+MOV C , CL
+JMP X
+
+NEGATIVO:
+
+MOV A, AL
+
+MOV AH, 1
+INT 21h
+MOV BL, AL
+MOV B , BL
+
+MOV AH, 1
+INT 21h
+MOV CL, AL
+MOV C , CL
+
+PUTC 10
+PUTC 13
+PRINT "NUMERO NEGATIVO. " 
+JMP ESC
+
+X:
+ADD DL, BL
+ADD DL, CL
+CMP DL, 144d 
+JE NULO 
+PUTC 10  
+PUTC 13
+PRINT "NUMERO POSITIVO. "
+JMP ESC
+
+NULO:
+PUTC 10  
+PUTC 13
+PRINT "NUMERO NULO. "
+
+ESC:
+ PUTC 10
+ PUTC 13
+ PRINT "NUMERO LIDO: "
+ 
+ MOV DL, A
+ MOV AH, 2
+ INT 21h 
+ 
+ MOV DL, B
+ MOV AH, 2
+ INT 21h
+  
+ MOV DL, C
+ MOV AH, 2
+ INT 21h
+
+ 
+EXIT:
+A        DB 1h
+B        DB 1h
+C        DB 1h
+RET
+
+
